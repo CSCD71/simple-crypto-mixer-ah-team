@@ -1,0 +1,174 @@
+<!-- AI generated / AI assisted frontend scaffold. Review and understand before submitting. -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Mixer</title>
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">ZM</div>
+        <div>
+          <h1>Crypto Mixer</h1>
+          <p class="subtitle">Sepolia zk-SNARK mixer dApp</p>
+        </div>
+      </div>
+
+      <div class="wallet-box">
+        <button id="connectButton" class="btn">Connect Wallet</button>
+        <div id="walletStatus" class="wallet-status"></div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <div class="section-head">
+          <h2>Contract</h2>
+        </div>
+
+        <div id="message" class="message" data-tone="info">
+          Please connect your wallet first.
+        </div>
+
+        <div id="contractInfo" class="info-grid">
+          <div class="info-item">
+            <span class="label">Network</span>
+            <span id="networkName" class="value">Sepolia</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Mixer</span>
+            <a id="contractLink" class="value link" href="#" target="_blank" rel="noreferrer">
+              Not configured
+            </a>
+          </div>
+          <div class="info-item">
+            <span class="label">Contract Balance</span>
+            <span id="contractBalance" class="value">—</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Deposit Count</span>
+            <span id="depositCount" class="value">—</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="refreshButton" class="btn ghost" type="button">Refresh On-Chain Data</button>
+        </div>
+      </section>
+
+      <section class="grid-2">
+        <section class="card">
+          <div class="section-head">
+            <h2>Deposit</h2>
+          </div>
+
+          <p class="muted">
+            Generate a fresh secret and nullifier locally, compute the commitment,
+            and deposit exactly <strong>0.01 ETH</strong>.
+          </p>
+
+          <div class="actions">
+            <button id="generateDepositButton" class="btn ghost" type="button">
+              Generate Secret + Nullifier
+            </button>
+          </div>
+
+          <div class="form">
+            <label class="field">
+              <span>Secret</span>
+              <textarea id="secretOutput" rows="2" readonly></textarea>
+            </label>
+
+            <label class="field">
+              <span>Nullifier</span>
+              <textarea id="nullifierOutput" rows="2" readonly></textarea>
+            </label>
+
+            <label class="field">
+              <span>Commitment</span>
+              <textarea id="commitmentOutput" rows="2" readonly></textarea>
+            </label>
+
+            <label class="checkbox-row">
+              <input id="saveLocalCheckbox" type="checkbox" checked />
+              <span>Save note in browser localStorage after successful deposit</span>
+            </label>
+
+            <div class="actions">
+              <button id="depositButton" class="btn" type="button">Deposit 0.01 ETH</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h2>Withdraw</h2>
+          </div>
+
+          <p class="muted">
+            Load a saved note or paste one manually, generate a zk proof, then withdraw to a new address.
+          </p>
+
+          <div class="actions wrap">
+            <button id="loadSelectedNoteButton" class="btn ghost" type="button">Load Selected Note</button>
+            <button id="reloadNotesButton" class="btn ghost" type="button">Reload Notes</button>
+          </div>
+
+          <label class="field">
+            <span>Saved Notes</span>
+            <select id="savedNotesSelect">
+              <option value="">No saved notes</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Deposit Note (JSON)</span>
+            <textarea id="noteInput" rows="8" placeholder='Paste saved note JSON here'></textarea>
+          </label>
+
+          <label class="field">
+            <span>Recipient Address</span>
+            <input id="recipientInput" type="text" placeholder="0x..." />
+          </label>
+
+          <label class="field">
+            <span>Withdrawal Nonce</span>
+            <input id="withdrawNonceInput" type="text" placeholder="e.g. 123456" />
+          </label>
+
+          <div class="actions wrap">
+            <button id="generateProofButton" class="btn ghost" type="button">Generate zk Proof</button>
+            <button id="withdrawButton" class="btn" type="button">Withdraw 0.01 ETH</button>
+          </div>
+
+          <label class="field">
+            <span>Encoded Proof Bytes</span>
+            <textarea id="proofOutput" rows="6" readonly></textarea>
+          </label>
+        </section>
+      </section>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Saved Deposit Notes</h2>
+        </div>
+
+        <p class="muted">
+          These are stored only in this browser. For privacy and recoverability, also save them offline.
+        </p>
+
+        <div class="actions wrap">
+          <button id="exportNotesButton" class="btn ghost" type="button">Export Notes JSON</button>
+          <button id="clearNotesButton" class="btn danger" type="button">Clear All Local Notes</button>
+        </div>
+
+        <div id="notesList" class="notes-list"></div>
+      </section>
+    </main>
+
+    <script type="module" src="static/app.js"></script>
+  </body>
+</html>
