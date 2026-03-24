@@ -21,7 +21,7 @@ import * as snarkjs from "https://esm.sh/snarkjs@0.7.5";
    CONFIG
    ========================= */
 
-const MIXER_ADDRESS = "0x469081dBBD0fFb418839cc1351AF30884572F014";
+const MIXER_ADDRESS = "0x9BcD4331Ff748145E813EeCe27054a717535943C";
 const ETHERSCAN_BASE = "https://sepolia.etherscan.io";
 const DEPOSIT_AMOUNT_ETH = "0.1";
 const MERKLE_LEVELS = 20;

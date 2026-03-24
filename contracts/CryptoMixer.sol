@@ -12,6 +12,7 @@ contract CryptoMixer {
 
     mapping(uint256 => bool) public roots;
     mapping(uint256 => bool) public nullifiers;
+    mapping(uint256 => bool) public commitments;
 
     IncrementalTreeData public tree;
 
@@ -26,7 +27,9 @@ contract CryptoMixer {
 
     function deposit(uint256 commitment) payable public {
 		require(msg.value == 0.1 ether, "Deposit must be exactly 0.1 ETH");
+        require(!commitments[commitment], "Commitment Already Exists");
 		tree.insert(commitment);
+        commitments[commitment] = true;
         roots[tree.root] = true;
         emit Deposited(commitment);
 	}
