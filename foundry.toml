@@ -8,6 +8,6 @@ optimizer = true
 optimizer_runs = 200
 
 libraries = [
-    "poseidon-solidity/PoseidonT3.sol:PoseidonT3:0x317E17ba046F375FC5236cE2Eb76d1e69f9AD7d9",
-    "@zk-kit/incremental-merkle-tree.sol/IncrementalBinaryTree.sol:IncrementalBinaryTree:0xF21AdA608A1a2a7AAa41aDfC8F8123Af22F3F42B"
+    "poseidon-solidity/PoseidonT3.sol:PoseidonT3:0x01222BC962C6D7430f0e72D8A2c11a777F945B90",
+    "@zk-kit/incremental-merkle-tree.sol/IncrementalBinaryTree.sol:IncrementalBinaryTree:0xBC4Eedc34B5F978F2f8D26B63cC77fCfa40Cc105"
 ]

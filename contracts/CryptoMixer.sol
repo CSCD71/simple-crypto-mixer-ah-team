@@ -25,7 +25,7 @@ contract CryptoMixer {
 
 
     function deposit(uint256 commitment) payable public {
-		require(msg.value == 0.001 ether, "Deposit must be exactly 0.001 ETH");
+		require(msg.value == 0.1 ether, "Deposit must be exactly 0.1 ETH");
 		tree.insert(commitment);
         roots[tree.root] = true;
         emit Deposited(commitment);
@@ -51,7 +51,7 @@ contract CryptoMixer {
 
         nullifiers[nullifier] = true;
         // Transfer funds
-        (bool sent, ) = to.call{value: 0.001 ether}("");
+        (bool sent, ) = to.call{value: 0.1 ether}("");
         require(sent, "Failed to send Ether");
     }
 }

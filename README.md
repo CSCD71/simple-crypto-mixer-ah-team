@@ -1,7 +1,7 @@
 # Simple Crypto Mixer
 
 * **Deployed dApp:** [https://cscd71.github.io/limit-order-exchange-ah](https://cscd71.github.io/limit-order-exchange-ah) // TODO
-* **Verified Sepolia Smart Contract:** [https://sepolia.etherscan.io/address/0x1f27F28F7571d840Fb5fa6BAc76a7e87783C8F64](https://sepolia.etherscan.io/address/0x1f27F28F7571d840Fb5fa6BAc76a7e87783C8F64) // TODO
+* **Verified Sepolia Smart Contract:** [https://sepolia.etherscan.io/address/0x469081dbbd0ffb418839cc1351af30884572f014](https://sepolia.etherscan.io/address/0x469081dbbd0ffb418839cc1351af30884572f014)
 
 ## Installing Dependencies
 
@@ -36,7 +36,9 @@ Phase 1
 
 ```bash
 snarkjs powersoftau new bn128 15 zk-data/pot15_0000.ptau -v
+
 snarkjs powersoftau contribute zk-data/pot15_0000.ptau zk-data/pot15_0001.ptau --name="First contribution" -v
+
 snarkjs powersoftau prepare phase2 zk-data/pot15_0001.ptau zk-data/pot15_final.ptau -v
 ```
 
@@ -44,7 +46,9 @@ If it gives an error try, do the same for the rest of the instructions if snarkj
 
 ```bash
 ./node_modules/.bin/snarkjs powersoftau new bn128 15 zk-data/pot15_0000.ptau -v
+
 ./node_modules/.bin/snarkjs powersoftau contribute zk-data/pot15_0000.ptau zk-data/pot15_0001.ptau --name="First contribution" -v
+
 ./node_modules/.bin/snarkjs powersoftau prepare phase2 zk-data/pot15_0001.ptau zk-data/pot15_final.ptau -v
 ```
 
@@ -52,12 +56,14 @@ Phase 2
 
 ```bash
 ./node_modules/.bin/snarkjs groth16 setup zk-data/ProofOfMembership.r1cs zk-data/pot15_final.ptau zk-data/ProofOfMembership.zkey
+
 ./node_modules/.bin/snarkjs zkey export verificationkey zk-data/ProofOfMembership.zkey zk-data/ProofOfMembership.vkey
 ```
 
 ## Generate the Solidity Veriffier
 ```bash
 ./node_modules/.bin/snarkjs zkey export solidityverifier zk-data/ProofOfMembership.zkey contracts/ProofOfMembershipVerifier.sol
+
 sed -i "" "s/contract Groth16Verifier/contract ProofOfMembershipVerifier/" contracts/ProofOfMembershipVerifier.sol
 ```
 
@@ -157,8 +163,8 @@ https://sepolia.etherscan.io/address/<DEPLOYED_ADDRESS>
 ```bash
 forge create contracts/ProofOfMembershipVerifier.sol:ProofOfMembershipVerifier \
   --rpc-url $ALCHEMY_RPC_URL \
-  --account deployer \                      
-  --broadcast        
+  --account deployer \
+  --broadcast
 ```
 
 #### Deploy Poseidon
@@ -166,17 +172,17 @@ forge create contracts/ProofOfMembershipVerifier.sol:ProofOfMembershipVerifier \
 ```bash
 forge create node_modules/poseidon-solidity/PoseidonT3.sol:PoseidonT3 \
   --rpc-url $ALCHEMY_RPC_URL \
-  --account deployer \                      
-  --broadcast   
+  --account deployer \
+  --broadcast
 ```
 
 #### Deploy Merkle Tree Library
 
 ```bash
-forge create node_modules/@zk-kit/incremental-merkle-tree.sol/IncrementalBinaryTree.sol:IncrementalBinaryTree \ 
+forge create node_modules/@zk-kit/incremental-merkle-tree.sol/IncrementalBinaryTree.sol:IncrementalBinaryTree \
   --rpc-url $ALCHEMY_RPC_URL \
-  --account deployer \                      
-  --broadcast             
+  --account deployer \
+  --broadcast
 ```
 
 ##### Note: update foundry.toml with the new addresses:
@@ -191,11 +197,11 @@ libraries = [
 #### Deploy Crypto Mixer (main contract)
 
 ```bash
-forge create contracts/CryptoMixer.sol:CryptoMixer \                            
+forge create contracts/CryptoMixer.sol:CryptoMixer \
   --rpc-url $ALCHEMY_RPC_URL \
-  --account deployer \                      
-  --broadcast \                               
-  --constructor-args <VERIFIER_ADDRESS>       
+  --account deployer \
+  --broadcast \
+  --constructor-args <VERIFIER_ADDRESS>
 ```
 
 #### (Optional) Verify the Contract on Etherscan
